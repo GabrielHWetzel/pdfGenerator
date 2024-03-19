@@ -1,10 +1,16 @@
 from fpdf import FPDF
+import pandas
 
 pdf = FPDF(orientation="P", unit="mm", format="A4")
+df = pandas.read_csv("topics.csv")
 
-pdf.add_page()
 
-pdf.set_font(family="Times", size=12)
-pdf.cell(w=0, h=12, txt="Hello World", align="L", ln=1, border=1)
+for index, row in df.iterrows():
+
+    pdf.add_page()
+
+    pdf.set_font(family="Helvetica", style="B", size=16)
+    pdf.cell(w=0, h=12, txt=row["Topic"], align="C", ln=1)
+    pdf.line(10, 23, 200, 23)
 
 pdf.output("output.pdf")
